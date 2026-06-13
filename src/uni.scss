@@ -1,0 +1,53 @@
+/**
+ * LiveLog Design Token System
+ * 基于视频视觉设计系统
+ */
+
+/* ========== 色彩体系 ========== */
+$bg-primary: #FFFFFF;              // 主页、识别页、涂鸦页背景
+$bg-secondary: #F2F2F7;            // 喝水页背景、次级卡片
+$bg-canvas: #1C1C1E;               // LiveLog 拼贴画布、涂鸦画布
+$text-primary: #1C1C1E;            // 页面标题、食物名称
+$text-secondary: #8E8E93;          // 副标题、时间、BMI、Placeholder
+$text-time: #9CA04D;               // 时间线中的「今天/昨天」标签
+$accent-orange: #FF5A36;           // 卡路里高亮数字、进度条、日期选中边框
+$accent-green: #8BC34A;            // kcal 单位、完成对勾、食用比例、选中胶囊
+$accent-green-soft: #E8F5E9;       // 纠正按钮背景、加号按钮背景
+$border-light: #E5E5EA;            // 时间轴连线、卡片边框、分割线
+
+/* ========== 圆角规范 ========== */
+$radius-sm: 8px;                   // 小标签、画笔选项
+$radius-md: 16px;                  // 日期选中框、比例选择器
+$radius-lg: 24px;                  // 底部 Sheet、涂鸦面板、画布
+$radius-xl: 32px;                  // 食物识别信息卡顶部、输入区顶部
+
+/* ========== 阴影规范 ========== */
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+$shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+$shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+/* ========== 字体规范 ========== */
+$font-title: 20px;                 // 页面主标题
+$font-headline: 22px;              // 食物识别页名称
+$font-body: 16px;                  // 正文、列表项
+$font-caption: 12px;               // 时间、刻度、小标签
+$font-calorie: 48px;               // 卡路里大数字（识别页）
+$font-calorie-sm: 42px;            // 卡路里数字（轮播页）
+
+/* ========== 间距 ========== */
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+$spacing-xl: 24px;
+$spacing-xxl: 32px;
+
+/* ========== uni-app 内置变量覆盖 ========== */
+$uni-color-primary: $accent-green;
+$uni-color-success: $accent-green;
+$uni-color-warning: $accent-orange;
+$uni-color-error: #E05D5D;
+$uni-text-color: $text-primary;
+$uni-text-color-grey: $text-secondary;
+$uni-bg-color: $bg-primary;
+$uni-bg-color-grey: $bg-secondary;
