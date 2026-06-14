@@ -2,7 +2,7 @@
 	<view class="tab-bar">
 		<view class="tab-bar-inner">
 			<!-- 饮食记录 -->
-			<view class="tab-item" @tap="switchTab('home')">
+			<view class="tab-item" @tap="switchTab('home')" @click="switchTab('home')">
 				<view class="tab-icon-wrap" :class="{ active: current === 'home' }">
 					<view class="hamburger-icon">
 						<view class="hamburger-line"></view>
@@ -24,7 +24,7 @@
 			</view>
 
 			<!-- 相机 - 中间突出按钮 -->
-			<view class="tab-item tab-camera" @tap="openCamera">
+			<view class="tab-item tab-camera" @tap="openCamera" @click="openCamera">
 				<view class="camera-btn">
 					<view class="camera-icon">
 						<view class="camera-body"></view>
@@ -44,7 +44,7 @@
 			</view>
 
 			<!-- LiveLog -->
-			<view class="tab-item" @tap="goToLiveLog">
+			<view class="tab-item" @tap="goToLiveLog" @click="goToLiveLog">
 				<view class="tab-icon-wrap" :class="{ active: current === 'livelog' }">
 					<view class="livelog-icon">
 						<view class="livelog-square"></view>

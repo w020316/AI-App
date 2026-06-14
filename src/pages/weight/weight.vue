@@ -5,7 +5,7 @@
 
 		<!-- 顶部导航 -->
 		<view class="nav-bar">
-			<view class="nav-back" @tap="goBack">
+			<view class="nav-back" @tap="goBack" @click="goBack">
 				<text class="back-icon">‹</text>
 			</view>
 			<text class="nav-title">体重记录</text>
@@ -22,6 +22,7 @@
 					class="activity-pill"
 					:class="{ active: selectedActivity === level.value }"
 					@tap="selectedActivity = level.value"
+					@click="selectedActivity = level.value"
 				>
 					<text class="activity-label">{{ level.label }}</text>
 				</view>
@@ -38,19 +39,19 @@
 				</view>
 				<view class="weight-keypad">
 					<view class="keypad-row">
-						<view class="key" @tap="inputKey('1')"><text>1</text></view>
-						<view class="key" @tap="inputKey('2')"><text>2</text></view>
-						<view class="key" @tap="inputKey('3')"><text>3</text></view>
+						<view class="key" @tap="inputKey('1')" @click="inputKey('1')"><text>1</text></view>
+						<view class="key" @tap="inputKey('2')" @click="inputKey('2')"><text>2</text></view>
+						<view class="key" @tap="inputKey('3')" @click="inputKey('3')"><text>3</text></view>
 					</view>
 					<view class="keypad-row">
-						<view class="key" @tap="inputKey('4')"><text>4</text></view>
-						<view class="key" @tap="inputKey('5')"><text>5</text></view>
-						<view class="key" @tap="inputKey('6')"><text>6</text></view>
+						<view class="key" @tap="inputKey('4')" @click="inputKey('4')"><text>4</text></view>
+						<view class="key" @tap="inputKey('5')" @click="inputKey('5')"><text>5</text></view>
+						<view class="key" @tap="inputKey('6')" @click="inputKey('6')"><text>6</text></view>
 					</view>
 					<view class="keypad-row">
-						<view class="key" @tap="inputKey('7')"><text>7</text></view>
-						<view class="key" @tap="inputKey('8')"><text>8</text></view>
-						<view class="key" @tap="inputKey('9')"><text>9</text></view>
+						<view class="key" @tap="inputKey('7')" @click="inputKey('7')"><text>7</text></view>
+						<view class="key" @tap="inputKey('8')" @click="inputKey('8')"><text>8</text></view>
+						<view class="key" @tap="inputKey('9')" @click="inputKey('9')"><text>9</text></view>
 					</view>
 					<view class="keypad-row">
 						<view class="key" @tap="inputKey('.')"><text>.</text></view>
@@ -85,7 +86,7 @@
 
 		<!-- 保存按钮 -->
 		<view class="save-area">
-			<view class="save-btn" @tap="saveWeight">
+			<view class="save-btn" @tap="saveWeight" @click="saveWeight">
 				<text class="save-text">保存记录</text>
 			</view>
 		</view>

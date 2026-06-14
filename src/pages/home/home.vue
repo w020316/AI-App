@@ -12,8 +12,9 @@
 						:key="item.dateStr"
 						:id="'date-' + item.day"
 						class="date-item"
-						:class="{ active: item.isSelected, completed: item.hasRecord && !item.isSelected }"
-						@tap="selectDate(item)"
+					:class="{ active: item.isSelected, completed: item.hasRecord && !item.isSelected }"
+					@tap="selectDate(item)"
+					@click="selectDate(item)"
 					>
 						<view v-if="item.hasRecord && !item.isSelected" class="date-check-wrap">
 							<text class="date-check">&#10003;</text>
@@ -43,7 +44,7 @@
 				</view>
 			</view>
 			<view class="stats-right">
-				<view class="add-btn-small" @tap="openCamera">
+				<view class="add-btn-small" @tap="openCamera" @click="openCamera">
 					<text class="add-btn-icon">+</text>
 				</view>
 			</view>
@@ -57,6 +58,7 @@
 				class="activity-pill"
 				:class="{ active: currentActivity === level }"
 				@tap="setActivity(level)"
+				@click="setActivity(level)"
 			>
 				<text>{{ level }}</text>
 			</view>
@@ -75,7 +77,7 @@
 				</view>
 			</view>
 			<view class="weight-right">
-				<view class="weight-add-btn" @tap="openWeight">
+				<view class="weight-add-btn" @tap="openWeight" @click="openWeight">
 					<text class="weight-add-icon">+</text>
 				</view>
 			</view>
@@ -89,6 +91,7 @@
 					:key="record.id"
 					class="timeline-item"
 					@tap="openFoodDetail(record)"
+					@click="openFoodDetail(record)"
 				>
 					<!-- 时间轴节点 -->
 					<view class="timeline-node">
@@ -277,6 +280,9 @@
 			},
 			openWeight() {
 				uni.navigateTo({ url: '/pages/weight/weight' })
+			},
+			openCamera() {
+				uni.navigateTo({ url: '/pages/food-camera/food-camera' })
 			},
 			setActivity(level) {
 				this.currentActivity = level

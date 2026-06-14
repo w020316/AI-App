@@ -107,7 +107,7 @@
 			<view class="section">
 				<text class="section-title">其他</text>
 				<view class="setting-card">
-					<view class="setting-item danger" @tap="clearData">
+					<view class="setting-item danger" @tap="clearData" @click="clearData">
 						<text class="item-label danger-text">清除所有数据</text>
 					</view>
 					<view class="setting-item">

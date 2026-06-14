@@ -2,7 +2,7 @@
 	<view class="water-page">
 		<!-- 顶部区域 -->
 		<view class="header">
-			<view class="back-btn" @tap="goBack">
+			<view class="back-btn" @tap="goBack" @click="goBack">
 				<text class="back-icon">−</text>
 			</view>
 			<text class="target-text">{{ formatNumber(targetWater) }}ml</text>
@@ -10,14 +10,14 @@
 
 		<!-- 人形容器 -->
 		<view class="human-container">
-			<svg class="human-svg" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+			<svg class="human-svg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
 				<defs>
 					<linearGradient id="waterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
 						<stop offset="0%" style="stop-color:#E1F5FE;stop-opacity:1" />
 						<stop offset="100%" style="stop-color:#81D4FA;stop-opacity:1" />
 					</linearGradient>
 					<clipPath id="bodyClip">
-						<path d="M90,60 C90,30 110,10 150,10 C190,10 210,30 210,60 C210,80 230,90 240,110 C250,130 245,160 235,180 C220,210 210,250 210,300 C210,360 230,380 250,400 L50,400 C70,380 90,360 90,300 C90,250 80,210 65,180 C55,160 50,130 60,110 C70,90 90,80 90,60 Z" />
+						<path d="M120,40 C120,20 135,10 150,10 C165,10 180,20 180,40 C180,55 190,65 205,80 C215,95 220,115 215,140 C210,170 205,200 202,240 C200,280 205,320 215,380 L85,380 C95,320 100,280 98,240 C95,200 90,170 85,140 C80,115 85,95 95,80 C110,65 120,55 120,40 Z" />
 					</clipPath>
 				</defs>
 
@@ -26,14 +26,14 @@
 					<rect
 						class="water-rect"
 						:x="0"
-						:y="420 - waterHeight"
+						:y="400 - waterHeight"
 						:width="300"
 						:height="waterHeight"
 						fill="url(#waterGrad)"
 						opacity="0.75"
 					/>
 					<!-- 波浪 -->
-					<g :transform="`translate(0, ${420 - waterHeight})`">
+					<g :transform="`translate(0, ${400 - waterHeight})`">
 						<path
 							class="wave"
 							d="M-100,0 Q-75,-8 -50,0 T0,0 T50,0 T100,0 T150,0 T200,0 T250,0 T300,0 T350,0 T400,0 V15 H-100 Z"
@@ -56,7 +56,7 @@
 				<!-- 容器轮廓 -->
 				<path
 					class="body-outline"
-					d="M90,60 C90,30 110,10 150,10 C190,10 210,30 210,60 C210,80 230,90 240,110 C250,130 245,160 235,180 C220,210 210,250 210,300 C210,360 230,380 250,400 L50,400 C70,380 90,360 90,300 C90,250 80,210 65,180 C55,160 50,130 60,110 C70,90 90,80 90,60 Z"
+					d="M120,40 C120,20 135,10 150,10 C165,10 180,20 180,40 C180,55 190,65 205,80 C215,95 220,115 215,140 C210,170 205,200 202,240 C200,280 205,320 215,380 L85,380 C95,320 100,280 98,240 C95,200 90,170 85,140 C80,115 85,95 95,80 C110,65 120,55 120,40 Z"
 					fill="none"
 					stroke="rgba(255,255,255,0.6)"
 					stroke-width="3"
@@ -73,7 +73,7 @@
 		</view>
 
 		<!-- 中央添加按钮 -->
-		<view class="fab" :class="{ pressing: fabPressing }" @touchstart="onFabDown" @touchend="onFabUp" @tap="openAddModal">
+		<view class="fab" :class="{ pressing: fabPressing }" @touchstart="onFabDown" @touchend="onFabUp" @tap="openAddModal" @click="openAddModal">
 			<text class="fab-icon">+</text>
 		</view>
 
@@ -83,7 +83,7 @@
 				<view v-for="r in waterRecords" :key="r.id" class="record-item">
 					<text class="r-time">{{ formatRecordTime(r.recordedAt) }}</text>
 					<text class="r-amount">{{ r.amount }}ml</text>
-					<view class="r-del" @tap="deleteRecord(r.id)">
+					<view class="r-del" @tap="deleteRecord(r.id)" @click="deleteRecord(r.id)">
 						<text class="r-del-icon">×</text>
 					</view>
 				</view>
@@ -96,14 +96,14 @@
 				<text class="ctrl-title">{{ selectedAmount ? selectedAmount + 'ml' : '请选择喝水量' }}</text>
 				<text class="ctrl-desc">{{ waterDescription }}</text>
 			</view>
-			<view class="ctrl-right" @tap="openTimePicker">
+			<view class="ctrl-right" @tap="openTimePicker" @click="openTimePicker">
 				<text class="ctrl-time">现在 {{ currentTime }}</text>
 				<text class="ctrl-arrow">▾</text>
 			</view>
 		</view>
 
 		<!-- 水量选择弹窗 -->
-		<view v-if="showAddModal" class="modal-overlay" @tap="closeAddModal">
+		<view v-if="showAddModal" class="modal-overlay" @tap="closeAddModal" @click="closeAddModal">
 			<view class="modal-sheet" @tap.stop>
 				<view class="modal-handle"></view>
 				<text class="modal-title">选择喝水量</text>
@@ -112,15 +112,17 @@
 						v-for="opt in amountOptions"
 						:key="opt"
 						class="amount-opt"
-						:class="{ active: selectedAmount === opt && !isCustom }"
-						@tap="selectAmount(opt)"
+					:class="{ active: selectedAmount === opt && !isCustom }"
+					@tap="selectAmount(opt)"
+					@click="selectAmount(opt)"
 					>
 						<text class="amount-opt-text">{{ opt }}ml</text>
 					</view>
 					<view
 						class="amount-opt"
-						:class="{ active: isCustom }"
-						@tap="selectCustom"
+					:class="{ active: isCustom }"
+					@tap="selectCustom"
+					@click="selectCustom"
 					>
 						<text class="amount-opt-text">自定义</text>
 					</view>
@@ -128,14 +130,14 @@
 				<view v-if="isCustom" class="custom-wrap">
 					<input class="custom-input" v-model="customAmount" type="digit" placeholder="输入水量(ml)" />
 				</view>
-				<view class="modal-btn" @tap="confirmAddWater">
+				<view class="modal-btn" @tap="confirmAddWater" @click="confirmAddWater">
 					<text class="modal-btn-text">确认</text>
 				</view>
 			</view>
 		</view>
 
 		<!-- 时间选择弹窗 -->
-		<view v-if="showTimePicker" class="modal-overlay" @tap="showTimePicker = false">
+		<view v-if="showTimePicker" class="modal-overlay" @tap="showTimePicker = false" @click="showTimePicker = false">
 			<view class="modal-sheet" @tap.stop>
 				<view class="modal-handle"></view>
 				<text class="modal-title">选择时间</text>
@@ -147,19 +149,23 @@
 						<view v-for="m in 60" :key="'m'+m" class="picker-item">{{ String(m-1).padStart(2,'0') }}</view>
 					</picker-view-column>
 				</picker-view>
-				<view class="modal-btn" @tap="confirmTime">
+				<view class="modal-btn" @tap="confirmTime" @click="confirmTime">
 					<text class="modal-btn-text">确定</text>
 				</view>
 			</view>
 		</view>
+
+		<TabBar current="water" />
 	</view>
 </template>
 
 <script>
+	import TabBar from '@/components/TabBar.vue'
 	import { getWaterRecords, addWaterRecord, getDayWaterTotal, getSettings, initMockData } from '@/store/index.js'
 	import { formatTime, getWaterDescription } from '@/utils/index.js'
 
 	export default {
+		components: { TabBar },
 		data() {
 			return {
 				totalWater: 0,
@@ -176,8 +182,8 @@
 				selectedMinute: 0,
 				fabPressing: false,
 				bubbles: Array.from({ length: 12 }, (_, i) => ({
-					x: 80 + Math.random() * 140,
-					y: 300 + Math.random() * 80,
+					x: 90 + Math.random() * 120,
+					y: 280 + Math.random() * 100,
 					r: 2 + Math.random() * 3,
 					delay: Math.random() * 3
 				}))
@@ -185,7 +191,7 @@
 		},
 		computed: {
 			waterHeight() {
-				return Math.min((this.totalWater / this.targetWater) * 420, 420)
+				return Math.min((this.totalWater / this.targetWater) * 400, 400)
 			},
 			waterDescription() {
 				const amount = this.isCustom ? (parseInt(this.customAmount) || 0) : this.selectedAmount
@@ -224,8 +230,8 @@
 				return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 			},
 			goBack() {
-			uni.switchTab({ url: '/pages/home/home' })
-		},
+				uni.switchTab({ url: '/pages/home/home' })
+			},
 			onFabDown() {
 				this.fabPressing = true
 			},
@@ -352,7 +358,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 		width: 300px;
-		height: 420px;
+		height: 400px;
 		z-index: 2;
 	}
 

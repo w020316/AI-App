@@ -53,7 +53,7 @@
 		<view class="brush-panel">
 			<view class="panel-header">
 				<text class="panel-title">选择画笔</text>
-				<view class="color-picker" @tap="toggleColorPanel">
+				<view class="color-picker" @tap="toggleColorPanel" @click="toggleColorPanel">
 					<view class="color-wheel" :style="{ background: currentColor }"></view>
 				</view>
 			</view>
@@ -65,6 +65,7 @@
 					class="brush-item"
 					:class="{ active: currentBrush === brush.id }"
 					@tap="selectBrush(brush.id)"
+					@click="selectBrush(brush.id)"
 				>
 					<view class="brush-preview">
 						<template v-if="brush.id === 'marker'">

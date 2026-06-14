@@ -1,7 +1,7 @@
 <template>
 	<view class="detail-page">
 		<!-- 关闭按钮 -->
-		<view class="close-btn" @tap="goBack">
+		<view class="close-btn" @tap="goBack" @click="goBack">
 			<text class="close-icon">✕</text>
 		</view>
 
@@ -79,10 +79,10 @@
 
 		<!-- 底部操作 -->
 		<view v-if="records.length > 0" class="bottom-actions">
-			<view class="action-delete" @tap="deleteRecord">
+			<view class="action-delete" @tap="deleteRecord" @click="deleteRecord">
 				<text class="action-text-delete">删除</text>
 			</view>
-			<view class="action-livelog" @tap="addToLiveLog">
+			<view class="action-livelog" @tap="addToLiveLog" @click="addToLiveLog">
 				<text class="action-text-livelog">添加到 LiveLog</text>
 			</view>
 		</view>

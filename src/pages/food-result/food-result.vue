@@ -13,7 +13,7 @@
 					<path d="M10 10L22 22M22 10L10 22" stroke="#8E8E93" stroke-width="2.5" stroke-linecap="round" />
 				</svg>
 			</view>
-			<view class="portion-selector" @tap="togglePortion">
+			<view class="portion-selector" @tap="togglePortion" @click="togglePortion">
 				<text class="portion-text">{{ percentage }}%</text>
 				<text class="portion-arrow">▼</text>
 			</view>
@@ -90,7 +90,7 @@
 			</view>
 
 			<!-- 确认按钮 -->
-			<view class="confirm-btn" @tap="confirmRecord">
+			<view class="confirm-btn" @tap="confirmRecord" @click="confirmRecord">
 				<text class="confirm-text">确认记录</text>
 			</view>
 		</view>
@@ -107,6 +107,7 @@
 						class="portion-option"
 						:class="{ active: percentage === p || (p === '自定义' && isCustomPercent) }"
 						@tap="selectPortion(p)"
+						@click="selectPortion(p)"
 					>
 						<text>{{ p === '自定义' ? '自定义' : p + '%' }}</text>
 					</view>
@@ -143,7 +144,7 @@
 						<input class="form-input" v-model="correctWeight" type="digit" />
 					</view>
 				</view>
-				<view class="modal-confirm-btn" @tap="confirmCorrect">
+				<view class="modal-confirm-btn" @tap="confirmCorrect" @click="confirmCorrect">
 					<text class="modal-confirm-text">确定</text>
 				</view>
 			</view>

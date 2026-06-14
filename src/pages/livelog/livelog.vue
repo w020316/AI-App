@@ -7,7 +7,7 @@
 					<text class="main-title">今日LiveLog</text>
 					<text v-if="elementCount > 0" class="count-badge">{{ elementCount }}</text>
 				</view>
-				<text class="save-action" @tap="saveToAlbum">保存至相册</text>
+				<text class="save-action" @tap="saveToAlbum" @click="saveToAlbum">保存至相册</text>
 			</view>
 			<text class="sub-title">可自由拖动图片，将其保存为实况</text>
 		</view>
@@ -94,22 +94,22 @@
 
 			<!-- 底部悬浮工具栏 -->
 			<view class="float-toolbar" :class="{ 'toolbar-visible': toolbarVisible }">
-				<view class="tool-item" @tap="selectDuration">
+				<view class="tool-item" @tap="selectDuration" @click="selectDuration">
 					<text class="tool-label duration-label">5s ▾</text>
 				</view>
-				<view class="tool-item" @tap="addText">
+				<view class="tool-item" @tap="addText" @click="addText">
 					<text class="tool-label text-label">Aa</text>
 				</view>
-				<view class="tool-item" @tap="addDecoration">
+				<view class="tool-item" @tap="addDecoration" @click="addDecoration">
 					<text class="tool-label star-label">✦</text>
 				</view>
-				<view class="tool-item" @tap="changeBackground">
+				<view class="tool-item" @tap="changeBackground" @click="changeBackground">
 					<text class="tool-label">背景</text>
 				</view>
-				<view class="tool-item" @tap="goToDoodle">
+				<view class="tool-item" @tap="goToDoodle" @click="goToDoodle">
 					<text class="tool-label">涂鸦</text>
 				</view>
-				<view class="tool-item" @tap="toggleMute">
+				<view class="tool-item" @tap="toggleMute" @click="toggleMute">
 					<text class="tool-label mute-label">{{ isMuted ? '🔇' : '🔊' }}</text>
 				</view>
 			</view>
@@ -125,7 +125,7 @@
 	</view>
 
 	<!-- 文字输入弹窗 -->
-	<view v-if="showTextModal" class="modal-overlay" @tap="showTextModal = false">
+	<view v-if="showTextModal" class="modal-overlay" @tap="showTextModal = false" @click="showTextModal = false">
 		<view class="modal-content" @tap.stop>
 			<text class="modal-title">添加文字</text>
 			<input
@@ -135,14 +135,14 @@
 				placeholder-class="placeholder-style"
 				focus
 			/>
-			<view class="modal-btn" @tap="confirmAddText">
+			<view class="modal-btn" @tap="confirmAddText" @click="confirmAddText">
 				<text class="modal-btn-text">添加</text>
 			</view>
 		</view>
 	</view>
 
 	<!-- 装饰选择弹窗 -->
-	<view v-if="showDecoModal" class="modal-overlay" @tap="showDecoModal = false">
+	<view v-if="showDecoModal" class="modal-overlay" @tap="showDecoModal = false" @click="showDecoModal = false">
 		<view class="modal-content" @tap.stop>
 			<text class="modal-title">选择装饰</text>
 			<view class="deco-grid">
@@ -151,6 +151,7 @@
 					:key="deco"
 					class="deco-grid-item"
 					@tap="confirmAddDecoration(deco)"
+					@click="confirmAddDecoration(deco)"
 				>
 					<text class="deco-grid-emoji">{{ deco }}</text>
 				</view>
@@ -236,15 +237,28 @@
 			},
 			generateStickersFromRecords() {
 				const records = getFoodRecords(new Date())
-				this.stickers = records.map((r, i) => ({
-					id: 'sticker_' + r.id,
-					imageUrl: r.imageUrl || '',
-					x: 30 + (i % 3) * 90,
-					y: 30 + Math.floor(i / 3) * 100,
-					width: 80,
-					height: 80,
-					rotation: (Math.random() - 0.5) * 20
-				}))
+				const canvasW = this.canvasWidth
+				const canvasH = this.canvasHeight
+				this.stickers = records.map((r, i) => {
+					const cols = 3
+					const col = i % cols
+					const row = Math.floor(i / cols)
+					const baseX = 20 + col * ((canvasW - 40) / cols)
+					const baseY = 30 + row * 100
+					const jitterX = (Math.sin(i * 1.5) * 30) + (Math.random() - 0.5) * 20
+					const jitterY = (Math.cos(i * 2.3) * 25) + (Math.random() - 0.5) * 15
+					const size = 65 + Math.random() * 20 // 65-85px
+					return {
+						id: 'sticker_' + r.id,
+						imageUrl: r.imageUrl || '',
+						x: Math.max(8, Math.min(canvasW - size - 8, baseX + jitterX)),
+						y: Math.max(8, Math.min(canvasH - size - 8, baseY + jitterY)),
+						width: size,
+						height: size,
+						rotation: (Math.sin(i * 0.8) * 14) + (Math.random() - 0.5) * 6,
+						zIndex: i
+					}
+				})
 			},
 			addFoodSticker(foodId) {
 				const records = getFoodRecords(new Date())
@@ -272,7 +286,8 @@
 					top: sticker.y + 'px',
 					width: (sticker.width || 80) + 'px',
 					height: (sticker.height || 80) + 'px',
-					transform: `rotate(${sticker.rotation || 0}deg)`
+					transform: `rotate(${sticker.rotation || 0}deg)`,
+					zIndex: sticker.zIndex || 1
 				}
 			},
 			getTextStyle(text) {

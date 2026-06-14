@@ -12,7 +12,7 @@
 				<view class="nav-action-btn" @tap="toggleFlash">
 					<text class="action-icon">⚡</text>
 				</view>
-				<view class="nav-action-btn" @tap="switchCamera">
+				<view class="nav-action-btn" @tap="switchCamera" @click="switchCamera">
 					<text class="action-icon">↻</text>
 				</view>
 			</view>
@@ -45,7 +45,7 @@
 			</view>
 
 			<view v-else class="bottom-controls">
-				<view class="retake-btn" @tap="retake">
+				<view class="retake-btn" @tap="retake" @click="retake">
 					<text class="retake-label">重拍</text>
 				</view>
 			</view>
