@@ -4,6 +4,9 @@
 		<view class="header">
 			<view class="title-row">
 				<view class="title-group">
+					<view class="back-btn" @tap="goBack" @click="goBack">
+						<text class="back-icon">‹</text>
+					</view>
 					<text class="main-title">今日LiveLog</text>
 					<text v-if="elementCount > 0" class="count-badge">{{ elementCount }}</text>
 				</view>
@@ -56,7 +59,9 @@
 					@mousemove.stop="onStickerMouseMove($event, index)"
 					@mouseup.stop="onStickerMouseUp"
 				>
-					<image class="sticker-img" :src="sticker.imageUrl" mode="aspectFill"></image>
+					<view class="sticker-content" :style="{ backgroundColor: sticker.bgColor || '#8BC34A' }">
+						<text class="sticker-emoji">{{ sticker.emoji || '🍽' }}</text>
+					</view>
 				</view>
 
 				<!-- 文字层 -->
@@ -220,7 +225,10 @@
 			this.redrawDoodles()
 		},
 		methods: {
-			// ========== 数据加载 ==========
+			goBack() {
+				uni.switchTab({ url: '/pages/home/home' })
+			},
+		// ========== 数据加载 ==========
 			loadLiveLog() {
 				const logs = getLiveLogs(new Date())
 				if (logs.length > 0) {
@@ -239,6 +247,9 @@
 				const records = getFoodRecords(new Date())
 				const canvasW = this.canvasWidth
 				const canvasH = this.canvasHeight
+				// 食物颜色映射
+				const foodColors = ['#D4A574', '#FF6B6B', '#C75B39', '#C8956C', '#7CB342', '#F5A623', '#F5F5DC', '#7B68EE']
+				const foodEmojis = ['🍰', '🍉', '🍜', '🧋', '🥗', '🌯', '🥣', '🫐']
 				this.stickers = records.map((r, i) => {
 					const cols = 3
 					const col = i % cols
@@ -250,7 +261,8 @@
 					const size = 65 + Math.random() * 20 // 65-85px
 					return {
 						id: 'sticker_' + r.id,
-						imageUrl: r.imageUrl || '',
+						bgColor: foodColors[i % foodColors.length],
+						emoji: foodEmojis[i % foodEmojis.length],
 						x: Math.max(8, Math.min(canvasW - size - 8, baseX + jitterX)),
 						y: Math.max(8, Math.min(canvasH - size - 8, baseY + jitterY)),
 						width: size,
@@ -263,12 +275,13 @@
 			addFoodSticker(foodId) {
 				const records = getFoodRecords(new Date())
 				const record = records.find(r => r.id === foodId)
-				if (record && record.imageUrl) {
+				if (record) {
 					const exists = this.stickers.find(s => s.id === 'sticker_' + record.id)
 					if (!exists) {
 						this.stickers.push({
 							id: 'sticker_' + record.id,
-							imageUrl: record.imageUrl,
+							bgColor: '#8BC34A',
+							emoji: '🍽',
 							x: 50 + Math.random() * (this.canvasWidth - 150),
 							y: 50 + Math.random() * (this.canvasHeight - 150),
 							width: 80,
@@ -658,6 +671,24 @@
 		gap: 4px;
 	}
 
+	.back-btn {
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.05);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: 8px;
+	}
+
+	.back-icon {
+		font-size: 20px;
+		color: #1C1C1E;
+		font-weight: 600;
+		line-height: 1;
+	}
+
 	.main-title {
 		font-size: 22px;
 		font-weight: 700;
@@ -747,13 +778,19 @@
 		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 	}
 
-	.sticker-img {
+	.sticker-content {
 		width: 100%;
 		height: 100%;
 		border-radius: 12px;
 		border: 2.5px solid #FFFFFF;
-		object-fit: cover;
-		display: block;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+
+	.sticker-emoji {
+		font-size: 36px;
 	}
 
 	/* 文字 */

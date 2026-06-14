@@ -2,7 +2,7 @@
 	<view class="doodle-page" :class="{ 'page-leaving': isLeaving }">
 		<!-- 顶部标题区 -->
 		<view class="header">
-			<view class="close-btn" @tap="goBack">
+			<view class="close-btn" @tap="goBack" @click="goBack">
 				<text class="close-icon">✕</text>
 			</view>
 			<view class="title-group">

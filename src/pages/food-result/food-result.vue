@@ -8,7 +8,7 @@
 
 		<!-- 顶部导航区 -->
 		<view class="top-nav">
-			<view class="close-btn" @tap="goHome">
+			<view class="close-btn" @tap="goHome" @click="goHome">
 				<svg width="32" height="32" viewBox="0 0 32 32" fill="none">
 					<path d="M10 10L22 22M22 10L10 22" stroke="#8E8E93" stroke-width="2.5" stroke-linecap="round" />
 				</svg>

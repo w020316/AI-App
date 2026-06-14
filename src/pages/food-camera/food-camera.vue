@@ -5,7 +5,7 @@
 
 		<!-- 顶部导航 -->
 		<view class="nav-bar">
-			<view class="nav-back" @tap="goBack">
+			<view class="nav-back" @tap="goBack" @click="goBack">
 				<text class="back-icon">‹</text>
 			</view>
 			<view class="nav-actions">

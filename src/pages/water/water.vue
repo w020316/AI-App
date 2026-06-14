@@ -48,7 +48,7 @@
 						:cx="b.x"
 						:cy="b.y"
 						:r="b.r"
-						fill="rgba(255,255,255,0.6)"
+						fill="rgba(79, 195, 247, 0.8)"
 						:style="{ animationDelay: b.delay + 's' }"
 					/>
 				</g>
@@ -58,7 +58,7 @@
 					class="body-outline"
 					d="M120,40 C120,20 135,10 150,10 C165,10 180,20 180,40 C180,55 190,65 205,80 C215,95 220,115 215,140 C210,170 205,200 202,240 C200,280 205,320 215,380 L85,380 C95,320 100,280 98,240 C95,200 90,170 85,140 C80,115 85,95 95,80 C110,65 120,55 120,40 Z"
 					fill="none"
-					stroke="rgba(255,255,255,0.6)"
+					stroke="rgba(79, 195, 247, 0.5)"
 					stroke-width="3"
 				/>
 			</svg>
@@ -360,6 +360,8 @@
 		width: 300px;
 		height: 400px;
 		z-index: 2;
+		background: rgba(225, 245, 254, 0.3);
+		border-radius: 150px 150px 40px 40px;
 	}
 
 	.human-svg {
